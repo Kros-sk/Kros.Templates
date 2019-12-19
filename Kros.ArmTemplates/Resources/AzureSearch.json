@@ -1,0 +1,40 @@
+﻿{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "searchName": {
+            "type": "string"
+        },
+        "tier": {
+            "type": "string",
+            "allowedValues": [
+                "free",
+                "basic",
+                "standard",
+                "standard2",
+                "standard3"
+            ]
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Search/searchServices",
+            "apiVersion": "2015-08-19",
+            "name": "[parameters('searchName')]",
+            "location": "[resourceGroup().location]",
+            "tags": {
+                "DEK": "",
+                "Esw": ""
+            },
+            "sku": {
+                "name": "[parameters('tier')]"
+            },
+            "properties": {
+                "replicaCount": 1,
+                "partitionCount": 1,
+                "hostingMode": "Default"
+            }
+        }
+    ]
+}

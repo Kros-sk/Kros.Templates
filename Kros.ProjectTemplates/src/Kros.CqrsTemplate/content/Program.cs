@@ -1,5 +1,6 @@
-﻿using Microsoft.AspNetCore;
+﻿using Kros.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 
 namespace Kros.CqrsTemplate
 {
@@ -14,16 +15,19 @@ namespace Kros.CqrsTemplate
         /// <param name="args">Arguments.</param>
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args).Build().Run();
+            CreateHostBuilder(args).Build().Run();
         }
 
         /// <summary>
         /// Create web host builder.
         /// </summary>
         /// <param name="args">Arguments.</param>
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseApplicationInsights()
-                .UseStartup<Startup>();
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .AddLocalConfiguration()
+                .ConfigureWebHostDefaults(webBuilder => 
+                { 
+                    webBuilder.UseStartup<Startup>(); 
+                }); 
     }
 }

@@ -65,7 +65,7 @@
                       "ASPNETCORE_ENVIRONMENT"
                     ]
                   }
-                }
+                },
                 {
                     "apiVersion": "2015-08-01",
                     "name": "Microsoft.ApplicationInsights.AzureWebSites",

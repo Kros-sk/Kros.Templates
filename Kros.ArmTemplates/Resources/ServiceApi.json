@@ -85,7 +85,9 @@
                     ],
                     "properties": {
                         "APPINSIGHTS_INSTRUMENTATIONKEY": "[parameters('appInsightsInstrumentationKey')]",
-                        "ASPNETCORE_ENVIRONMENT": "[parameters('slotAspnetEnvironment')]"
+                        "siteConfig": { 
+                            "ASPNETCORE_ENVIRONMENT": "[parameters('slotAspnetEnvironment')]"
+                        }                        
                     }
                 }
             ]

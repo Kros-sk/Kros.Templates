@@ -83,9 +83,9 @@
                     "dependsOn": [
                         "[resourceId('Microsoft.Web/sites/slots', parameters('apiName'), parameters('slotName'))]"
                     ],
-                    "properties": {
-                        "APPINSIGHTS_INSTRUMENTATIONKEY": "[parameters('appInsightsInstrumentationKey')]",
+                    "properties": {                        
                         "siteConfig": { 
+                            "APPINSIGHTS_INSTRUMENTATIONKEY": "[parameters('appInsightsInstrumentationKey')]",
                             "ASPNETCORE_ENVIRONMENT": "[parameters('slotAspnetEnvironment')]"
                         }                        
                     }

@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.BuilderMiddlewares;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Swagger;
+using Microsoft.Extensions.Hosting;
 
 namespace Kros.CqrsTemplate
 {
@@ -21,9 +23,10 @@ namespace Kros.CqrsTemplate
         /// <summary>
         /// Ctor.
         /// </summary>
+        /// <param name="configuration">Application configuration.</param>
         /// <param name="env">Environment.</param>
-        public Startup(IHostingEnvironment env)
-            : base(env)
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
+            : base(configuration, env)
         { }
 
         /// <summary>
@@ -34,7 +37,7 @@ namespace Kros.CqrsTemplate
         {
             base.ConfigureServices(services);
 
-            services.AddWebApi()
+            services.AddControllers()
                 .AddFluentValidation();
 
             services.AddApiJwtAuthentication(JwtAuthorizationHelper.JwtSchemeName, Configuration);
@@ -46,6 +49,8 @@ namespace Kros.CqrsTemplate
                 scan.FromCallingAssembly()
                 .AddClasses()
                 .AsMatchingInterface());
+                        
+            services.AddApplicationInsightsTelemetry();
 
             services
                 .AddSwaggerDocumentation(Configuration, c =>
@@ -83,8 +88,7 @@ namespace Kros.CqrsTemplate
             });
 
             app.UseAuthentication();
-            app.UseKormMigrations();
-            app.UseMvc();
+            app.UseKormMigrations();            
             app.UseRobotsTxt(builder => builder.DenyAll());
 
             app.UseSwaggerDocumentation(Configuration);

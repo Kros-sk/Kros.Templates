@@ -49,8 +49,7 @@ namespace Kros.CqrsTemplate
                 scan.FromCallingAssembly()
                 .AddClasses()
                 .AsMatchingInterface());
-
-            services.AddMvc(o => o.EnableEndpointRouting = false);
+                        
             services.AddApplicationInsightsTelemetry();
 
             services
@@ -89,8 +88,7 @@ namespace Kros.CqrsTemplate
             });
 
             app.UseAuthentication();
-            app.UseKormMigrations();
-            app.UseMvc();
+            app.UseKormMigrations();            
             app.UseRobotsTxt(builder => builder.DenyAll());
 
             app.UseSwaggerDocumentation(Configuration);

@@ -25,7 +25,7 @@
             "type": "Microsoft.ServiceBus/namespaces",
             "apiVersion": "2018-01-01-preview",
             "name": "[parameters('serviceBusName')]",
-            "location": "West Europe",
+            "location": "[resourceGroup().location]",
             "tags": {
                 "Esw": ""
             },

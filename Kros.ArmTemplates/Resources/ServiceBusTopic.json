@@ -7,6 +7,9 @@
 		},
 		"topicName": {
 			"type": "string"
+		},
+		"subscriptionNames": {
+			"type": "array"
 		}
 	},
 	"variables": {
@@ -28,7 +31,33 @@
 				"autoDeleteOnIdle": "P427D",
 				"enablePartitioning": false,
 				"enableExpress": false
-			}
+			},
+			"resources": [
+				{
+					"type": "Microsoft.ServiceBus/namespaces/topics/subscriptions",
+					"apiVersion": "2017-04-01",
+					"name": "[variables('subscriptionNames').[copyIndex()]]",
+					"location": "[resourceGroup().location]",
+					"properties": {
+						"lockDuration": "PT30S",
+						"requiresSession": false,
+						"defaultMessageTimeToLive": "P14D",
+						"deadLetteringOnMessageExpiration": true,
+						"deadLetteringOnFilterEvaluationExceptions": false,
+						"maxDeliveryCount": 10,
+						"status": "Active",
+						"enableBatchedOperations": false,
+						"autoDeleteOnIdle": "P427D"
+					},
+					"dependsOn": [
+						"[concat(parameters('serviceBusName'), '/', parameters('topicName'))]"
+					],
+					"copy": {
+						"name": "subscriptionsCopy",
+						"count": "[length(variables('subscriptionNames'))]"
+					}
+				}
+			]
 		}
 	],
 	"outputs": {

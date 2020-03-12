@@ -49,7 +49,7 @@ namespace Kros.CqrsTemplate
                 scan.FromCallingAssembly()
                 .AddClasses()
                 .AsMatchingInterface());
-                        
+
             services.AddApplicationInsightsTelemetry();
 
             services
@@ -87,8 +87,14 @@ namespace Kros.CqrsTemplate
                 ResponseWriter = HealthCheckResponseWriter.WriteHealthCheckResponseAsync
             });
 
+            app.UseRouting();
             app.UseAuthentication();
-            app.UseKormMigrations();            
+            app.UseAuthorization();
+            app.UseKormMigrations();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
             app.UseRobotsTxt(builder => builder.DenyAll());
 
             app.UseSwaggerDocumentation(Configuration);

@@ -5,7 +5,9 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [dbo].[RRREntityNameRRR_Plural_](
-	[Id] [bigint] IDENTITY(1,1) NOT NULL
+	[Id] [bigint] IDENTITY(1,1) NOT NULL,
+	[CreatedTimestamp] datetimeoffset(2) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    [LastModifiedTimestamp] datetimeoffset(2) NOT NULL
  CONSTRAINT [PK_RRREntityNameRRR_Plural_] PRIMARY KEY CLUSTERED
 (
 	[Id] ASC

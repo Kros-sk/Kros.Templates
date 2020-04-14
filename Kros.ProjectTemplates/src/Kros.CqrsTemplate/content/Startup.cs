@@ -9,9 +9,9 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Swagger;
-using Microsoft.Extensions.Hosting;
 
 namespace Kros.CqrsTemplate
 {
@@ -73,6 +73,12 @@ namespace Kros.CqrsTemplate
             if (Environment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+
+                app.UseSwagger();
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Kros.CqrsTemplate API V1");
+                });
             }
             else
             {

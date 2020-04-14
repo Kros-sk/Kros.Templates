@@ -24,10 +24,17 @@ namespace Kros.CqrsTemplate
         /// <param name="args">Arguments.</param>
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .AddLocalConfiguration()
-                .ConfigureWebHostDefaults(webBuilder => 
-                { 
-                    webBuilder.UseStartup<Startup>(); 
-                }); 
+                .ConfigureAppConfiguration((hostingContext, config) =>
+                {
+                    if (hostingContext.HostingEnvironment.IsDevelopment())
+                    {
+                        config.AddAzureAppConfiguration(hostingContext);
+                    }
+                    config.AddLocalConfiguration();
+                })
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+                });
     }
 }

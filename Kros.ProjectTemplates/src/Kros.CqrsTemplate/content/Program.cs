@@ -26,7 +26,9 @@ namespace Kros.CqrsTemplate
             Host.CreateDefaultBuilder(args)
                 .ConfigureAppConfiguration((hostingContext, config) =>
                 {
-                    if (hostingContext.HostingEnvironment.IsDevelopment())
+                    var settings = config.Build();
+                    string appConfigEndpoint = settings["AppConfig:Endpoint"];
+                    if (!string.IsNullOrWhiteSpace(appConfigEndpoint))
                     {
                         config.AddAzureAppConfiguration(hostingContext);
                     }

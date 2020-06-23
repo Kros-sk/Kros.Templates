@@ -50,8 +50,6 @@ namespace Kros.CqrsTemplate
                 .AddClasses()
                 .AsMatchingInterface());
 
-            services.AddApplicationInsightsTelemetry();
-
             services
                 .AddSwaggerDocumentation(Configuration, c =>
                 {
@@ -93,6 +91,7 @@ namespace Kros.CqrsTemplate
                 ResponseWriter = HealthCheckResponseWriter.WriteHealthCheckResponseAsync
             });
 
+            app.UseApplicationInsights(Configuration);
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();

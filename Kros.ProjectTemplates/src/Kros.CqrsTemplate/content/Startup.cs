@@ -93,6 +93,7 @@ namespace Kros.CqrsTemplate
 
             app.UseApplicationInsights(Configuration);
             app.UseRouting();
+            app.UseRoutePattern();
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseKormMigrations();

@@ -1,8 +1,8 @@
-﻿using FluentValidation.AspNetCore;
-using Kros.CqrsTemplate.Infrastructure;
+﻿using Kros.CqrsTemplate.Infrastructure;
 using Kros.KORM.Extensions.Asp;
 using Kros.MediatR.Extensions;
 using MediatR;
+using MediatR.Extensions.FluentValidation.AspNetCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using System.Reflection;
@@ -17,18 +17,6 @@ namespace Microsoft.Extensions.DependencyInjection
         private const string ApiName = "Kros.CqrsTemplate Api";
         private const string ApiVersion = "v1";
         private const string FullApiName = ApiName + " " + ApiVersion;
-
-        /// <summary>
-        /// Register fluent validation.
-        /// </summary>
-        /// <param name="builder">MVC builder.</param>
-        /// <returns>MVC builder.</returns>
-        public static IMvcCoreBuilder AddFluentValidation(this IMvcCoreBuilder builder)
-            => builder.AddFluentValidation(o =>
-            {
-                o.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly());
-                o.RunDefaultMvcValidationAfterFluentValidationExecutes = false;
-            });
 
         /// <summary>
         /// Add KORM database.
@@ -50,8 +38,12 @@ namespace Microsoft.Extensions.DependencyInjection
         /// </summary>
         /// <param name="services">DI container.</param>
         public static IServiceCollection AddMediatRDependencies(this IServiceCollection services)
-            => services.AddMediatR(Assembly.GetExecutingAssembly())
-                .AddMediatRNullCheckPostProcessor();
+        {
+            Assembly executingAssembly = Assembly.GetExecutingAssembly();
+            return services.AddMediatR(executingAssembly)
+                .AddMediatRNullCheckPostProcessor()
+                .AddFluentValidation(new[] { executingAssembly });
+        }
 
         /// <summary>
         /// Add Health checks.

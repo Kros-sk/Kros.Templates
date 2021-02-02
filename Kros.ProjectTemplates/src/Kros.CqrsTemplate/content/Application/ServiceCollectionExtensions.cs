@@ -1,5 +1,4 @@
-﻿using FluentValidation.AspNetCore;
-using Kros.CqrsTemplate.Infrastructure;
+﻿using Kros.CqrsTemplate.Infrastructure;
 using Kros.KORM.Extensions.Asp;
 using Kros.MediatR.Extensions;
 using MediatR;

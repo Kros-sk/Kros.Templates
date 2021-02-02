@@ -1,7 +1,8 @@
-﻿using FluentValidation.AspNetCore;
+﻿using Hellang.Middleware.ProblemDetails;
 using Kros.AspNetCore;
 using Kros.AspNetCore.Authorization;
 using Kros.AspNetCore.HealthChecks;
+using Kros.ProblemDetails.Extensions;
 using Kros.Swagger.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.BuilderMiddlewares;
@@ -37,8 +38,8 @@ namespace Kros.CqrsTemplate
         {
             base.ConfigureServices(services);
 
-            services.AddControllers()
-                .AddFluentValidation();
+            services.AddControllers();
+            services.AddKrosProblemDetails();
 
             services.AddApiJwtAuthentication(JwtAuthorizationHelper.JwtSchemeName, Configuration);
 
@@ -70,8 +71,6 @@ namespace Kros.CqrsTemplate
 
             if (Environment.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
-
                 app.UseSwagger();
                 app.UseSwaggerUI(c =>
                 {
@@ -84,6 +83,7 @@ namespace Kros.CqrsTemplate
                 app.UseHttpsRedirection();
             }
 
+            app.UseProblemDetails();
             app.UseErrorHandling();
             app.UseHealthChecks("/health", new HealthCheckOptions
             {

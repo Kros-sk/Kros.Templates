@@ -39,7 +39,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <param name="services">DI container.</param>
         public static IServiceCollection AddMediatRDependencies(this IServiceCollection services)
         {
-            Assembly executingAssembly = Assembly.GetExecutingAssembly();
+            var executingAssembly = Assembly.GetExecutingAssembly();
             return services.AddMediatR(executingAssembly)
                 .AddMediatRNullCheckPostProcessor()
                 .AddFluentValidation(new[] { executingAssembly });

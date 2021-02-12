@@ -10,7 +10,7 @@ namespace Kros.CqrsTemplate.Infrastructure
     /// </summary>
     public class RRREntityNameRRR_Repository : IRRREntityNameRRR_Repository
     {
-        private IDatabase _database;
+        private readonly IDatabase _database;
 
         /// <summary>
         /// Ctor.

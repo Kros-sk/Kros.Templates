@@ -7,7 +7,7 @@ namespace Kros.CqrsTemplate
     /// <summary>
     /// Startup class.
     /// </summary>
-    public class Program
+    public static class Program
     {
         /// <summary>
         /// Application entry.

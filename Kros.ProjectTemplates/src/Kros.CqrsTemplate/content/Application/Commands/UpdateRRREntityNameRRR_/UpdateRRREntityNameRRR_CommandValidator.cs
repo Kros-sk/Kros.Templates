@@ -12,7 +12,6 @@ namespace Kros.CqrsTemplate.Application.Commands
         /// </summary>
         public UpdateRRREntityNameRRR_CommandValidator()
         {
-
         }
     }
 }

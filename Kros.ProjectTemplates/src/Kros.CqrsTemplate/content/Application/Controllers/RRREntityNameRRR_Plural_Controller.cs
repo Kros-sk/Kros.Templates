@@ -65,8 +65,8 @@ namespace Kros.CqrsTemplate.Application.Controllers
         /// <summary>
         /// Update RRREntityNameRRR_.
         /// </summary>
-        /// <param name="command">Data for creating RRREntityNameRRR_.</param>
         /// <param name="id">RRREntityNameRRR_ id.</param>
+        /// <param name="command">Data for creating RRREntityNameRRR_.</param>
         /// <response code="200">Updated.</response>
         /// <response code="403">Forbidden when user don't have permission for RRREntityNameRRR_ with <paramref name="id"/>.</response>
         /// <response code="404">If RRREntityNameRRR_ with id <paramref name="id"/> doesn't exist.</response>
